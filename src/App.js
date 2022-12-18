@@ -1,16 +1,16 @@
-import logo from './logo.svg';
 import './App.css';
-import { Box, Button, SimpleGrid, Stack } from '@chakra-ui/react';
+import { Box, SimpleGrid} from '@chakra-ui/react';
 import CommonCard from './components/CommonCard';
 import img1 from '../src/assets/img1.jpg'
 import img2 from '../src/assets/img2.jpg'
 import img3 from '../src/assets/img3.jpg'
 
-
+// Main function
 function App() {
   return (
     <Box as='section' maxW='6xl' marginX={'auto'}>
       <SimpleGrid columns={{md: 2, lg: 3}} spacing='2vw'>
+        {/* 1st card  */}
         <CommonCard 
           img={img1} 
           isAuction={true}
@@ -22,6 +22,7 @@ function App() {
           amount={260}
           endTime={'January, 10, 2023'}
         />
+        {/* 2nd card  */}
         <CommonCard 
           img={img2} 
           isAuction={true}
@@ -33,6 +34,7 @@ function App() {
           amount={260}
           endTime={'December, 27, 2022'}
         />
+        {/* 3rd card */}
         <CommonCard 
           img={img3} 
           isAuction={false}
