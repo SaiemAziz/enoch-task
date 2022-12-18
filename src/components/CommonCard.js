@@ -1,10 +1,10 @@
 import { Badge, Box, Button, ButtonGroup, Card, CardBody, CardFooter, Divider, Flex, Heading, Image, Spacer, Stack, Text } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {AiFillHeart} from 'react-icons/ai'
-import Timer from './Timer';
 
 
-const CommonCard = ({ img = '', hotDeal = true, isAuction = false, title = 'No Title', isLiked = false, seller = 'No Seller', likeCount = 0,  previousAmount = 0, amount = 0, endTime }) => {
+// CommonCard component
+const CommonCard = ({ img = '', hotDeal = false, isAuction = false, title = 'No Title', isLiked = false, seller = 'No Seller', likeCount = 0,  previousAmount = 0, amount = 0, endTime }) => {
 
     let [liked, setLiked] = useState(isLiked)
     let [totalLiked, setTotalLiked] = useState(likeCount)
@@ -25,12 +25,14 @@ const CommonCard = ({ img = '', hotDeal = true, isAuction = false, title = 'No T
     }    
 
     return (
-        <Card maxW='md' mx={'auto'} bg={'#0b2237'} p={3}>
+        <Card mx={'auto'} bg={'#0b2237'} p={3}>
             <CardBody pb={0}>
                 <Box display='flex' alignItems={'center'} justifyContent={'space-between'} mb={5}>
-                    <Badge border={'2px'} borderRadius='full' px={3} bg='#141a30' py='1' color={'#535874'} borderColor="#535874">
-                        {hotDeal && 'Hot Deal'}
-                    </Badge>
+                    {
+                        hotDeal ? <Badge border={'2px'} borderRadius='full' px={3} bg='#141a30' py='1' color={'#535874'} borderColor="#535874">
+                                    Hot Deal
+                                </Badge> : <Text></Text>
+                    }
                     <Badge border={'2px'} borderRadius='full' px={3} bg='#141a30' py='1' color={'white'} borderColor={isAuction ? '#9e420b' : '#45379f'}>
                         {isAuction ? 'AUCTION' : 'SALE'}
                     </Badge>
@@ -70,21 +72,21 @@ const CommonCard = ({ img = '', hotDeal = true, isAuction = false, title = 'No T
                             </Badge>
                         }
                     </Box>
-                    <Box w={'57%'} bg={'#0e1f35'} border={'2px'} borderColor={'#312a2f'} px={1} py={2}>
+                    <Box bg={'#0e1f35'} border={'2px'} borderColor={'#312a2f'} px={1} py={2} flexGrow={1}>
                         <Text as={'b'} fontStyle={'normal'} fontSize='sm' color={'#83add5'} >{isAuction ? 'AUCTION' : 'FLASH DEAL'} ENDS IN</Text>
                         <Timer endTime={endTime} />
                     </Box>
                 </Box>
             </CardBody>
-            <Box as={'section'} width={'full'} display={'flex'} justifyContent={'space-between'} alignItems={'center'} p={5} pt={0} >
+            <Box as={'section'} width={'full'} display={'flex'} justifyContent={'space-between'} alignItems={'center'} p={5} pt={0} gap={3}>
                 {
                     !isAuction &&
-                    <Button p={6} variant='outline' borderColor={'#9099a4'}
-                    color={"#e9eaeb"} borderRadius={'sm'}  w={'48%'} _hover={{backgroundColor: 'blue.700', borderColor: 'blue.700'}}>
+                    <Button py={6} px={3} variant='outline' borderColor={'#9099a4'}
+                    color={"#e9eaeb"} borderRadius={'sm'}  _hover={{backgroundColor: 'blue.700', borderColor: 'blue.700'}}>
                         ADD TO CART
                     </Button>
                 }
-                <Button p={6} w={isAuction? 'full' : '48%'} variant='solid' bg={'#0083f4'}
+                <Button py={6} flexGrow={1} variant='solid' bg={'#0083f4'}
                     color={"white"} borderRadius={'sm'}  _hover={{backgroundColor: 'blue.800'}}>
                     {isAuction ? 'BID NOW' : 'BUY NOW'}
                 </Button>
@@ -93,4 +95,55 @@ const CommonCard = ({ img = '', hotDeal = true, isAuction = false, title = 'No T
     );
 };
 
+
+
+// Timer function component
+function Timer({endTime}){
+    const [days, setDays] = useState(0);
+    const [hours, setHours] = useState(0);
+    const [minutes, setMinutes] = useState(0);
+    const [seconds, setSeconds] = useState(0);
+  
+    const getTime = () => {
+      const time = Date.parse(endTime) - Date.now();    
+  
+      setDays(Math.floor(time / (1000 * 60 * 60 * 24)));
+      setHours(Math.floor((time / (1000 * 60 * 60)) % 24));
+      setMinutes(Math.floor((time / 1000 / 60) % 60));
+      setSeconds(Math.floor((time / 1000) % 60));
+    };
+  
+    useEffect(() => {
+      const interval = setInterval(() => getTime(endTime), 1000);
+  
+      return () => clearInterval(interval);
+    }, []);
+  
+    return (
+      <Box as='div' className="timer" role="timer" display={'flex'} justifyContent={'space-between'} color={'white'} pr={1} fontSize={'18px'}>
+        
+          <Box as='div' className="box">
+            <Text id="day">{days < 10 ? "0" + days : days}</Text>
+          </Box>
+          <Text>:</Text>
+          <Box as='div' className="box">
+            <Text id="hour">{hours < 10 ? "0" + hours : hours}</Text>
+          </Box>
+          <Text>:</Text>
+          <Box as='div' className="box">
+            <Text id="minute">{minutes < 10 ? "0" + minutes : minutes}</Text>
+          </Box>
+          <Text>:</Text>
+          <Box as='div' className="box">
+            <Text id="second">{seconds < 10 ? "0" + seconds : seconds}s</Text>
+          </Box>
+        
+      </Box>
+    );
+};
+
+
 export default CommonCard;
+export {
+    Timer
+}

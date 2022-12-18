@@ -10,10 +10,11 @@ import img3 from '../src/assets/img3.jpg'
 function App() {
   return (
     <Box as='section' maxW='6xl' marginX={'auto'}>
-      <SimpleGrid columns={{md: 2, lg: 3}} spacing='20px'>
+      <SimpleGrid columns={{md: 2, lg: 3}} spacing='2vw'>
         <CommonCard 
           img={img1} 
           isAuction={true}
+          hotDeal={true}
           title='#B8/457843'
           seller='Enoch Citizen'
           isLiked={false}
@@ -24,6 +25,7 @@ function App() {
         <CommonCard 
           img={img2} 
           isAuction={true}
+          hotDeal={true}
           title='#B8/457843'
           seller='Enoch Citizen'
           isLiked={true}
@@ -34,6 +36,7 @@ function App() {
         <CommonCard 
           img={img3} 
           isAuction={false}
+          hotDeal={true}
           title='#B8/457843'
           seller='Enoch Citizen'
           isLiked={false}
