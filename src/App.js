@@ -14,6 +14,7 @@ function App() {
         fontStyle={"normal"}
         fontSize={"4xl"}
         color={"#dbdde0"}
+        margin={10}
       >
         Sales Products
       </Text>
