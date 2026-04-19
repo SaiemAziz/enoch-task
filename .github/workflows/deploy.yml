@@ -26,5 +26,4 @@ jobs:
 
       - name: Deploy to IIS
         run: |
-          Remove-Item -Recurse -Force "C:\inetpub\wwwroot\Enoch\Front-end\*" -ErrorAction Ignore
-          Copy-Item -Recurse -Force ".\build\*" "C:\inetpub\wwwroot\Enoch\Front-end\"
+          robocopy ".\build" "C:\inetpub\wwwroot\Enoch\Front-end" /MIR /XF DIP.png
