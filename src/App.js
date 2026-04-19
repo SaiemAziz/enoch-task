@@ -16,7 +16,7 @@ function App() {
         color={"#dbdde0"}
         padding={10}
       >
-        Offer Products
+        Offer Sales
       </Text>
       <SimpleGrid columns={{ md: 2, lg: 3 }} spacing="2vw">
         {/* 1st card  */}

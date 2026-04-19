@@ -27,3 +27,4 @@ jobs:
       - name: Deploy to IIS
         run: |
           robocopy ".\build" "C:\inetpub\wwwroot\Enoch\Front-end" /MIR /XF DIP.png
+          if ($LASTEXITCODE -ge 8) { exit $LASTEXITCODE } else { exit 0 }
